@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Card</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+    font-family: sans-serif;
+  }
+
+  .card-container {
+    position: relative;
+    width: 400px;
+    height: 300px;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+
+  /* Show the current image */
+  .card img.active {
+    display: block;
+  }
+
+  /* Arrow buttons */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .arrow-left {
+    left: -70px;
+  }
+
+  .arrow-right {
+    right: -70px;
+  }
+
+  /* Optional hover effect */
+  .arrow:hover {
+    background: rgba(0,0,0,0.7);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="card-container">
+  <button class="arrow arrow-left" id="prev">&#10094;</button>
+  <div class="card">
+    <img src="front.png" id="front" class="active" alt="Front page">
+    <img src="middle.png" id="middle" alt="Middle page">
+    <img src="last.png" id="last" alt="Last page">
+  </div>
+  <button class="arrow arrow-right" id="next">&#10095;</button>
+</div>
+
+<script>
+  const pages = ["front", "middle", "last"];
+  let current = 0;
+
+  const showPage = (index) => {
+    pages.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if(i === index){
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    });
+  };
+
+document.getElementById("next").addEventListener("click", () => {
+    current = (current + 1) % pages.length;
+    showPage(current);
+  });
+
+  // Show the first page on load
+  showPage(current);
+</script>
+
+</body>
+</html>
